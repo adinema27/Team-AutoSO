@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Summary</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .header {
+      width: 100%;
+      background-color: #003366;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header .title {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .header .subtitle {
+      font-size: 16px;
+      font-style: italic;
+    }
+
+    .summary-container {
+      background-color: #ffffff;
+      padding: 40px 50px;
+      margin-top: 60px;
+      border-radius: 16px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      width: 520px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #003366;
+    }
+
+    .data-row {
+      margin: 12px 0;
+      font-size: 17px;
+      color: #333;
+    }
+
+    .label {
+      font-weight: bold;
+      display: inline-block;
+      width: 190px;
+      color: #444;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .btn-row form {
+      margin: 0;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .success {
+      text-align: center;
+      color: green;
+      margin-top: 25px;
+      font-weight: bold;
+    }
+
+    .error {
+      text-align: center;
+      color: red;
+      margin-top: 25px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="title">AutoSo</div>
+    <div class="subtitle">An ERP Tool with AI Implementation</div>
+  </div>
+
+  <!-- Sales Order Summary Card -->
+  <div class="summary-container">
+    <h2>Sales Order Summary</h2>
+
+    <div class="data-row"><span class="label">Customer Number:</span> {{ customer_number }}</div>
+    <div class="data-row"><span class="label">Material Number:</span> {{ material_number }}</div>
+    <div class="data-row"><span class="label">Quantity:</span> {{ quantity }}</div>
+    <div class="data-row"><span class="label">Term of Payment:</span> {{ term_of_payment }}</div>
+    <div class="data-row"><span class="label">Discount (%):</span> {{ discount }}</div>
+    <div class="data-row"><span class="label">Dunning Level:</span> {{ dunning_level }}</div>
+
+    <!-- Buttons Side-by-Side -->
+    <div class="btn-row">
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="confirm">
+        <button type="submit">✅ Create Sales Order</button>
+      </form>
+
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="edit">
+        <button type="submit">✏️ Change Values Manually</button>
+      </form>
+    </div>
+
+    <!-- Messages -->
+    {% if success %}
+      <div class="success">{{ success }}</div>
+    {% endif %}
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+  </div>
+
+</body>
+</html>

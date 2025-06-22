@@ -1,0 +1,148 @@
+<!-- templates/final_sales_order.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AutoSo - Pricing Analysis</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #dbeef3;
+            padding: 10px 30px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #003366;
+        }
+
+        .info-bar {
+            background-color: #eaf2f8;
+            padding: 15px 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .info-item {
+            min-width: 180px;
+        }
+
+        .info-item span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            color: #444;
+        }
+
+        .footer {
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+            padding: 20px;
+        }
+
+        .highlight {
+            background-color: #dff0d8;
+            font-weight: bold;
+            color: #3c763d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>AutoSo: Sales Order</h2>
+    </div>
+
+    {% if data %}
+        <div class="info-bar">
+            <div class="info-item"><span>Customer number:</span> {{ data.customer_number }}</div>
+            <div class="info-item"><span>Material:</span> {{ data.material_number }}</div>
+            <div class="info-item"><span>Plant:</span> {{ data.plant }}</div>
+            <div class="info-item"><span>Storage Location:</span> {{ data.storage_location }}</div>
+            <div class="info-item"><span>Currency:</span> {{ data.currency }}</div>
+            <div class="info-item"><span>Customer:</span> {{ data.customer_name }}</div>
+            <div class="info-item"><span>Order ID:</span> {{ data.order_id }}</div>
+            <div class="info-item"><span>Date:</span> {{ data.date }}</div>
+        </div>
+
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Material Name</th>
+                        <th>Base Unit</th>
+                        <th>Quantity</th>
+                        <th>Net Weight</th>
+                        <th>Gross Weight</th>
+                        <th>MRP</th>
+                        <th>Tax %</th>
+                        <th>Discount %</th>
+                        <th>Standard Price</th>
+                        <th>Total Price</th>
+                        <th>Term of Payment</th>
+                        <th>Dunning Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight">
+                        <td>{{ data.material_name }}</td>
+                        <td>{{ data.base_unit }}</td>
+                        <td>{{ data.quantity }}</td>
+                        <td>{{ data.net_weight }}</td>
+                        <td>{{ data.gross_weight }}</td>
+                        <td>{{ data.mrp }}</td>
+                        <td>{{ data.tax_percentage }}</td>
+                        <td>{{ data.discount }}</td>
+                        <td>{{ data.standard_price }}</td>
+                        <td>{{ data.total_price }}</td>
+                        <td>{{ data.term_of_payment }}</td>
+                        <td>{{ data.dunning_level }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="content">
+            <p style="color: red; text-align: center;">⚠️ No sales order data found.</p>
+        </div>
+    {% endif %}
+
+    <div class="footer">
+        Simulated Sales Order | AutoSo Hackathon 2025
+    </div>
+
+</body>
+</html>
